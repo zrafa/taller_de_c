@@ -1,0 +1,92 @@
+
+\section{Ejercicios}
+\label{tc-control-ej}
+
+\begin{enumerate}
+\item Reescribir estas sentencias usando while en vez de for:
+\begin{enumerate}[label=\alph*.]
+	\item 
+\begin{lstlisting}
+for(i=0; i<=10; i++)
+    a = i;
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+for( ; j<100; j+=2) {
+    a = j;
+    b = j * 2;
+}
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+for( ; ; )
+    a++;
+\end{lstlisting}
+\end{enumerate}
+
+\item Si la función \lstinline{quedanDatos()} devuelve el valor lógico que sugiere su nombre,
+¿cuál es la estructura preferible?
+\begin{enumerate}[label=\alph*.]
+\item 
+\begin{lstlisting}
+while(quedanDatos()) {
+    procesar();
+}
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+do {
+    procesar();
+} while(quedanDatos());
+\end{lstlisting}
+\end{enumerate}
+\item ¿Cuál es el error de programación en estos ejemplos?
+	\begin{enumerate}[label=\alph*.]
+\item 
+\begin{lstlisting}
+for(i = 0; i < 10; i++);
+    a = i - 50L;
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+while(i < 100) {
+    procesar(i);
+    a = a + i;
+}
+\end{lstlisting}
+\end{enumerate}
+\item ¿Cuál es el valor de x a la salida de los lazos siguientes?
+	\begin{enumerate}[label=\alph*.]
+	\item 
+\begin{lstlisting}
+for(x = 0; x<100; x++);
+\end{lstlisting}
+
+	\item 
+\begin{lstlisting}
+for(x = 32; x<55; x += 3);
+\end{lstlisting}
+
+	\item 
+\begin{lstlisting}
+for(x =  10;x>0; x--);
+\end{lstlisting}
+\end{enumerate}
+\item ¿Cuántas X escriben estas líneas?
+\begin{lstlisting}
+for (x = 0; x < 10; x++)
+    for (y = 5;  y >  0; y--)
+        escribir("X");
+\end{lstlisting}
+\item Escribir sentencias que impriman la tabla de multiplicar para un entero
+dado.
+\item Imprimir la tabla de los diez primeros números primos (sólo divisibles por
+sí mismos y por la unidad).
+\item Escribir las sentencias para calcular el factorial de un entero.
+\end{enumerate}
+%TODO Ejercicios_Adicionales Ejercicios_Avanzados
+

@@ -1,0 +1,553 @@
+
+\chapter{Propiedades de las variables}
+\label{chap:tc-variables}
+Las variables tienen diferentes propiedades según que sean declaradas dentro o fuera de las funciones,
+y según ciertos modificadores utilizados al declararlas. Entre las propiedades de las variables
+distinguimos:
+
+\begin{itemize}
+	\item Alcance (desde dónde es visible una variable)
+	\item Vida (cuándo se crea y cuándo desaparece)
+	\item Clase de almacenamiento (dónde y cómo se aloja la información que contiene)
+	\item Liga o \textit{linkage} (en qué forma puede ser manipulada por el linker)
+\end{itemize}
+
+Las reglas que determinan, a partir de la declaración de una variable, cuáles serán sus propiedades, son
+bastante complejas. Estas reglas son tan interdependientes, que necesariamente la discusión de las
+propiedades de las variables será algo reiterativa.
+
+\section{Alcance de las variables}
+
+Una declaración puede aparecer, o bien dentro de una función, o bien fuera de todas ellas. En el primer
+caso, hablamos de una \textbf{variable local}; en el segundo, se trata de una variable \textbf{externa, o global}, y las
+diferencias entre ambas son muchas e importantes. Por supuesto, la primera consecuencia del lugar de declaración es el \textbf{alcance}, o ámbito de visibilidad de la variable: una variable local \textbf{es visible sólo desde dentro de la función} donde
+es declarada. Una variable externa puede ser usada \textbf{desde cualquier función de la unidad de traducción},
+siendo suficiente que la declaración se encuentre antes que el uso.
+
+\begin{ejemplo}
+La variable \lstinline{m} declarada al principio es externa, y puede ser vista desde \lstinline{fun1()} y \lstinline{fun2()}. Sin embargo,
+\lstinline{fun1()} declara su propia variable m local, y toda operación con \lstinline{m} dentro de \lstinline{fun1()} se referirá a esta
+última. Por otro lado, la variable \lstinline{n} es también externa, pero es visible sólo por \lstinline{fun2()}, porque \textbf{todo uso
+de las variables debe estar precedido por su declaración}. Si apareciera una referencia a la variable \lstinline{n} en \lstinline{fun1()}, se dispararía un error de compilación. 
+\begin{lstlisting}
+int m;
+int fun1() 
+{
+	int m;
+	m=1;
+	...
+}
+int n;
+int fun2() 
+{
+	m=1;
+	...
+}
+\end{lstlisting}
+\end{ejemplo}
+
+
+\section{Vida de las variables}
+
+Una variable externa se crea al \textbf{momento de carga} del programa, y \textbf{perdura durante toda la ejecución}
+del mismo. Una variable local \textbf{se crea y se destruye} a cada invocación de la función donde esté
+declarada (excepción: las locales estáticas).
+
+\begin{ejemplo}
+Cada vez que \lstinline{fun2()} asigna el resultado de \lstinline{fun1()} a \lstinline{j}, está utilizando el mismo objeto de datos de la misma variable \lstinline{j}, porque ésta es externa; pero cada invocación de \lstinline{fun1()} crea un nuevo objeto de datos para la variable \lstinline{k}, el cual se destruye al terminar esta función.
+\begin{lstlisting}
+int j;
+int fun1()
+{
+	int k;
+	...
+}
+int fun2()
+{
+	j=fun1();
+}
+\end{lstlisting}
+\end{ejemplo}
+
+\begin{ejemplo}
+La diferencia del siguiente ejemplo con el anterior es que ahora \lstinline{k} es declarada con el modificador \textbf{static}. Esto hace que \lstinline{k} tenga las mismas propiedades de vida que una variable externa. A cada invocación de \lstinline{fun1()},
+ésta utiliza el mismo objeto de datos, sin modificarlo, para la variable \lstinline{k}. Si lee su valor, encontrará el
+contenido que pueda haberle quedado de la invocación anterior. Si le asigna un valor, la invocación siguiente de \lstinline{fun1()}
+encontrará ese valor en \lstinline{k}. 
+
+Este ejemplo muestra que alcance y vida no son propiedades equivalentes en
+C. 
+\begin{lstlisting}
+int j;
+int fun1()
+{
+	static int k;
+	...
+}
+int fun2()
+{
+	j=fun1();
+}
+\end{lstlisting}
+La propiedad que diferencia ambas instancias de \lstinline{k} es la \textbf{clase de almacenamiento}; en el primer caso,
+\lstinline{k} es local y automática; en el segundo, \lstinline{k} es local pero estática. 
+\end{ejemplo}
+
+
+\section{Clases de almacenamiento}
+Dependiendo de cómo son almacenados los contenidos de las variables (es decir, en qué lugar del mapa de memoria del programa se mantienen los objetos de datos), éstas pueden tener varias clases de almacenamiento. Una variable \textbf{externa} tiene clase de almacenamiento \textbf{estática}. Una variable \textbf{local} tiene -salvo indicación contraria- clase de almacenamiento \textbf{automática}. Una tercera clase de almacenamiento es la llamada \textbf{registro}. La clase de almacenamiento determina, como se vio recién, la vida de las variables.
+
+\begin{description}
+	\item[Variables estáticas] Las variables estáticas comienzan su vida al tiempo de carga del programa, es decir, aun antes de que
+se inicie la ejecución de la función \code{main()}. Existen durante todo el tiempo de ejecución del programa.
+Son \textbf{inicializadas con ceros binarios}, salvo que exista otra inicialización explícita. Son las variables
+externas y las locales declaradas \code{static}.
+ \item [Variables automáticas] Esta clase abarca exclusivamente las variables, declaradas localmente a una función, que no sean
+declaradas \code{static}. El objeto de datos de una variable automática inicia su existencia al entrar el control a la función donde
+está declarada, y muere al terminar la función. \textbf{No son inicializadas} implícitamente, es decir, contienen
+\textbf{basura} salvo que se las inicialice explícitamente.
+\item [Variables registro] Una variable registro no ocupará memoria, sino que será mantenida en un registro del procesador.
+\end{description}
+
+\begin{ejemplo}
+En el segmento de programa siguiente:
+\begin{lstlisting}
+int m;
+int fun()
+{
+	int j;
+	register int k;
+	static int l;
+	...
+}
+\end{lstlisting}
+\begin{itemize}
+	\item La variable \lstinline{m}, por ser externa, tiene clase de almacenamiento \textbf{estática}. 
+	\item Las variables \lstinline{j}, \lstinline{k} y \lstinline{l} son locales, pero sólo \lstinline{j} es \textbf{automática}. 
+	\item La variable \lstinline{l} es \textbf{estática} (tiene propiedades de vida similares a las de \lstinline{m}). 
+		\item Por su parte \lstinline{k} es de tipo \textbf{registro}, lo que quiere decir que el compilador, siempre que resulte posible, mantendrá sus contenidos en algún registro de CPU de tamaño adecuado. 
+\end{itemize}
+\end{ejemplo}
+
+
+Una declaración \lstinline{register} debe tomarse solamente como una \textit{recomendación} hecha por el programador al compilador, ya que no hay garantías de que, al tiempo de ejecución, resulte posible utilizar un registro para esa variable. Más aún, el mismo programa, compilado y corrido en diferentes arquitecturas, podrá utilizar diferentes cantidades de registros para sus variables.
+
+Una variable \code{register} tendrá un tiempo de acceso muy inferior al de una variable en memoria, porque
+el acceso a un registro de CPU es mucho más rápido. La motivación de la clase de almacenamiento \textbf{registro} 
+se hace evidente en el Cuadro \ref{tab:tiempos} (tomado de \textit{Systems Performance: Enterprise and the Cloud}, Brendan Gregg, Prentice Hall, 2014).
+
+
+\tabla{tiempos}{Tiempos de acceso comunes, escalados a un segundo.}{l|l|l}
+{
+\hline
+Evento & Absoluto & Escalado \\
+\hline
+1 ciclo de CPU & 0.3 ns & 1 s \\
+Acceso a cache de nivel 1 & 0.9 ns & 3 s \\
+Acceso a cache de nivel 2 & 2.8 ns & 9 s \\
+Acceso a cache de nivel 3 & 12.9 ns & 43 s \\
+Acceso a memoria DRAM principal desde CPU & 120 ns & 6 min \\
+E/S a disco de estado sólido & 50 a 150 $\mu$s & 2 a 6 días \\
+E/S a disco rígido electromecánico & 1 a 10 ms & 1 a 12 meses
+}
+
+En general resulta interesante que las variables
+más frecuentemente accedidas sean las declaradas como \code{register}; típicamente, los índices de arrays,
+variables de control de lazos, etc. Sin embargo, la declaración \code{register} es quizás algo anacrónica, ya que los compiladores modernos ejecutan una serie de optimizaciones que frecuentemente utilizan registros para mantener las variables, aun cuando
+no haya indicación alguna por parte del programador.
+
+
+
+
+\begin{ejemplo}[ (¿Por qué usar static?)]
+La clase de almacenamiento \textbf{automática} es la natural para las variables locales; ¿cuál es la idea de declarar variables locales que sean \textbf{estáticas}? Generalmente se desea aprovechar la capacidad de \quotes{recordar la historia} de las variables estáticas, utilizando el valor al momento de la última invocación para producir uno nuevo. 
+
+La inicialización (implícita o explícita) de una variable estática se produce una única vez, al momento de carga del programa. Por el contrario, la inicialización (explícita) de una variable automática se hace al crear cada instancia de la misma (al momento de la entrada del control a la función). 
+
+Usando variables estáticas, una función puede, por ejemplo, contar la cantidad de veces que ha sido llamada. En el código siguiente, el ciclo \textbf{while} se ejecuta 50 veces y la variable \code{vez} asume cada vez un valor dependiente del anterior, pese a ser local a la función \code{veces()}.
+
+\begin{lstlisting}
+int veces()
+{
+	static int vez=0;
+	return ++vez;
+}
+int fun()
+{
+	while(veces() <= 50) {
+		...
+	}
+}
+\end{lstlisting}
+\end{ejemplo}
+
+
+
+
+\subsection{Variables y mapa de memoria}
+
+De acuerdo a su clase de almacenamiento, las variables aparecen en diferentes regiones del mapa de
+memoria del programa en ejecución.
+\begin{itemize}
+	\item Las variables locales (automáticas) \textbf{se disponen en la pila o stack} del programa.
+Debido a la forma de administración de esta zona de la
+memoria, existen solamente hasta la finalización de la
+función.
+\item Las variables estáticas (las externas, y las locales cuando
+son declaradas \lstinline{static}) se alojan en la \textbf{zona de datos
+estáticos}. Esta zona no cambia de tamaño ni pierde sus
+contenidos, y queda inicializada al momento de carga del
+programa.
+\end{itemize}
+
+A medida que una función invoca a otras, las variables locales van apareciendo en el stack, y a medida
+que las funciones terminan, el stack se va desalojando en orden inverso a como aparecieron las
+variables. Cada función, al recibir el control, toma parte del stack, con los contenidos que hubieran
+quedado allí de ejecuciones previas, para alojar allí sus variables. A esto se debe que el programa las
+vea inicializadas con basura.
+
+\figura[11]{stack1}{Objetos de datos en el stack.}{stack1.eps}
+\figura[11]{stack2}{Objetos de datos en el stack.}{stack2.eps}
+
+\begin{ejemplo}
+Con el código de la Fig. \ref{fig:stack1}, el estado del stack en momentos sucesivos será: 
+\begin{enumerate}
+\item Antes de entrar a \lstinline{fun1()} se tiene el stack vacío.
+\item Al entrar a \lstinline{fun1()} se disponen sus variables locales en el stack, en orden de aparición.
+\item Al entrar a \lstinline{fun2()} se dispone en el stack su variable local.
+\item Al salir de \lstinline{fun2()} y volver a \lstinline{fun1()} se desaloja la variable local de \lstinline{fun2()}.
+\item Al salir de \lstinline{fun1()} se desmantela el stack completamente y se vuelve al estado inicial.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{ejemplo}
+Con el código de la Fig. \ref{fig:stack2}, que invoca a dos funciones secuencialmente, el estado del stack en momentos sucesivos será: 
+\begin{enumerate}
+\item Antes de entrar a \lstinline{fun1()} se tiene el stack vacío.
+\item Al entrar a \lstinline{fun1()} se disponen sus variables locales en el stack, en orden de aparición.
+\item Al terminar \lstinline{fun1()} se desmantela el stack.
+\item Al entrar en \lstinline{fun2()} se dispone en el stack su variable local, cuyo objeto de datos tendrá \textit{basura} debida al valor de a dejado por \lstinline{fun1()}.
+\item Al salir de \lstinline{fun2()} se desmantela su stack completamente y se vuelve al estado inicial.
+\end{enumerate}
+\end{ejemplo}
+
+\section{Liga}
+La \textbf{liga} es la propiedad que determina si las variables y funciones definidas en una unidad de traducción serán o no visibles por el linker. Una vez que un conjunto de unidades de traducción pasa exitosamente la compilación, tenemos un
+conjunto de módulos objeto. Cada módulo objeto puede contener, en forma simbólica, pendiente de
+resolución, \textbf{referencias} a variables o funciones definidas en otros módulos.
+La propiedad de las variables y funciones que permite que el linker encuentre la \textbf{definición} de un
+objeto para aparearlo con su \textbf{referencia} es la \textbf{liga externa}. Tienen liga externa por defecto las \textbf{variables externas y
+las funciones}, de modo que todas éstas pueden ser referenciadas desde otras unidades de traducción.
+
+El concepto de liga externa es importante cuando el proyecto de desarrollo abarca varias unidades de
+traducción que deben dar lugar a un ejecutable. Aprovechando la propiedad de liga externa de las
+funciones, se puede ubicar cada definición de función, o un conjunto de ellas, en un archivo separado.
+Esto suele facilitar el mantenimiento y aportar claridad a la estructura de un proyecto de desarrollo.
+
+La excepción a la regla de liga externa se produce cuando las \textbf{variables externas o funciones} son
+declaradas con el modificador \textbf{static}. Este modificador cambia el tipo de los objetos a liga interna. Un
+objeto que normalmente sería de liga externa, declarado como static, pasa a ser visible únicamente
+dentro de la unidad de traducción donde ha sido declarado.
+
+Esta particularidad permite realizar, en cierta medida, ocultamiento de información. Si una unidad de
+traducción utiliza variables externas o funciones de su uso privado, que no deben hacerse visibles
+desde afuera, puede declarárselas static, con lo cual se harán inaccesibles a toda otra unidad de
+traducción. El caso típico se presenta cuando se desea hacer opacas las funciones que implementan un
+tipo de datos abstracto, haciéndolas de liga interna mientras que las funciones públicas (las de interfaz)
+se dejan con liga externa.
+
+Finalmente, las variables \textbf{locales}, al ser visibles únicamente dentro de su función, se dice que \textbf{no tienen liga} (el linker nunca llega a operar con ellas).
+
+\begin{ejemplo}
+En el ejemplo dado en el Cuadro \ref{tab:ejliga}, \lstinline{fun1()}, \lstinline{fun2()} y \lstinline{fun3()} están definidas en unas unidades de traducción distintas de la de \lstinline{main()}. El fuente \textbf{alfa.c} es capaz de dar origen a un programa ejecutable (porque contiene el punto de entrada al programa), pero solamente si al momento de linkedición se logra que el linker resuelva las
+referencias pendientes a \lstinline{fun1()} y a \lstinline{fun2()} (que no están definidas en \textbf{alfa.c}). Por motivos similares,
+las referencias en \textbf{gamma} necesitan de las definiciones en \textbf{beta} al momento de linkedición.
+
+En la práctica logramos esto de varias maneras.
+\begin{enumerate}
+	\item O bien, con:
+\begin{lstlisting}
+gcc alfa.c beta.c gamma.c -o alfa
+\end{lstlisting}
+
+que significa \quotes{compilar separadamente los tres fuentes, linkeditarlos juntos y al ejecutable resultado
+renombrarlo como \textbf{alfa}}; 
+\item o bien con:
+
+\begin{lstlisting}
+gcc -c alfa.c
+gcc -c beta.c
+gcc -c gamma.c
+gcc alfa.o beta.o gamma.o -o alfa
+\end{lstlisting}
+
+que es la misma tarea pero distribuida en etapas separadas;
+\item o bien preparando un archivo \textbf{makefile} indicando este modo de construcción e invocar a \textbf{make}.
+\end{enumerate}
+
+
+\begin{comment}
+\begin{table}
+\centering	
+\begin{tabular}{l|l|l}
+\hline
+alfa.c & beta.c & gamma.c \\
+\hline
+\begin{codecell}
+int main()
+{
+	fun1();
+	fun2();
+}
+\end{codecell}
+&
+\begin{codecell}
+int fun1()
+{
+	...
+}
+\end{codecell}
+&
+\begin{codecell}
+int fun2()
+{
+	...
+	fun3();
+	....
+}
+int fun3()
+{
+	...
+}
+\end{codecell}
+\\
+\end{tabular}
+ \caption{Liga de las variables}
+ \label{tab:ejliga} 
+\end{table}
+\end{comment}
+\end{ejemplo}
+
+
+\begin{ejemplo}
+El ejemplo del Cuadro \ref{tab:ejliga2} es casi idéntico al anterior, salvo que la función \lstinline{fun3()} ahora está declarada \lstinline{static}, y por este motivo no podrá ser vista por el linker para resolver la referencia pendiente de \lstinline{fun2()} en
+lambda.c. La función \lstinline{fun3()} tiene liga interna. Las tres unidades de traducción jamás podrán satisfacer la compilación.
+
+\begin{comment}
+\begin{table}
+\centering	
+\begin{tabular}{l|l|l}
+\hline
+iota.c & kappa.c & lambda.c \\
+\hline
+\begin{codecell}
+int main()
+{
+	fun1();
+	fun2();
+}
+\end{codecell}
+&
+\begin{codecell}
+int fun1()
+{
+	...
+}
+static int fun3()
+{
+	...
+}
+\end{codecell}
+&
+\begin{codecell}
+int fun2()
+{
+	...
+	fun3();
+	...
+}
+\end{codecell}
+\\
+\end{tabular}
+ \caption{Liga de las variables}
+ \label{tab:ejliga2} 
+\end{table}
+\end{comment}
+\end{ejemplo}
+
+
+\section{Declaraciones y definiciones}
+\begin{itemize}
+	\item Una \textbf{declaración} consiste en la \textbf{mención} de un objeto (variable o función) antes de su uso.
+	\item Una \textbf{definición} consiste en una sentencia de \textbf{creación} de dicha variable o función, que a partir de la ejecución de esa sentencia comienza a ser una entidad viva del programa.
+\end{itemize}
+
+
+Normalmente una \textbf{declaración} de variable (de la forma \lstinline{especificacion_de_tipo identificador}) funciona
+también como \textbf{definición} de la variable. Es decir, no sólo queda advertido el compilador de cuál es el
+\textbf{tipo} del objeto que se va a utilizar, sino que también se crea el espacio de memoria (el \textbf{objeto de datos})
+que va a alojar la información asociada.
+
+\begin{ejemplo}
+Son declaraciones que además funcionan como definiciones:
+\begin{lstlisting}
+int a;
+float b, c;
+int fun() 
+{
+	...
+}
+\end{lstlisting}
+\end{ejemplo}
+
+
+Cuando la declaración de una variable cualquiera aparece precedida del modificador \lstinline{extern}, ésta indica el nombre y tipo asociado, pero no habilita al compilador para crear el objeto de datos; se trata de una variable cuya \textbf{definición} puede ser encontrada
+\textbf{más adelante, o aun en otra unidad de traducción}. La declaración \lstinline{extern} tan sólo enuncia el tipo y nombre de la variable para que el compilador los tenga en cuenta.
+
+\begin{ejemplo}
+Las declaraciones siguientes no crean objetos de datos y por lo tanto \textbf{no son} definiciones.
+\begin{lstlisting}
+extern int a;
+extern float b, c;
+int fun();
+\end{lstlisting}
+\end{ejemplo}
+
+Una variable externa es visible desde todas las funciones de la unidad de traducción, y además puede ser
+utilizada desde otras. Esto se debe a la propiedad de liga externa de las variables externas: son visibles
+al linker como candidatos para resolver referencias pendientes.
+
+El requisito para poder utilizar una variable definida en otra unidad de traducción es declararla con el
+modificador \textbf{extern} en aquella unidad de traducción donde se va a utilizar.
+
+
+\begin{ejemplo}
+En el Cuadro \ref{tab:ejliga3}, el texto \lstinline{delta.c} es una unidad de traducción que declara dos variables externas y dos funciones, pero
+hace \textbf{opacas} a la variable \lstinline{n} y a la función \lstinline{fun2()} con el modificador \textbf{static}. 
+\begin{itemize}
+\item La función \lstinline{fun1()} puede
+utilizar a todas ellas por estar dentro de la misma unidad de traducción, pero \lstinline{fun3()}, que está en otra,
+sólo puede referenciar a \lstinline{m} y a \lstinline{fun1()}, que son de liga externa. Para ello debe declarar a \lstinline{m} como
+\lstinline{extern}, o de lo contrario no superará la compilación (\textit{\quotes{todo uso debe ser precedido por una
+declaración}}).
+\item Si, además, \lstinline{eta.c} declarara una variable \lstinline{extern int n}, con la intención de referirse a la variable \lstinline{n} definida en \lstinline{delta.c}, la referencia no podría ser resuelta a causa de la condición de liga interna de \lstinline{n}. 
+
+
+\item Los usos de funciones (como \lstinline{fun1()} en \lstinline{eta.c}) pueden aparecer sin declaración previa, pero en este caso
+el compilador asumirá tipos de datos default para los argumentos y para el tipo del valor devuelto por
+la función (\textbf{int} en todos los casos).
+\end{itemize}
+
+
+\begin{comment}
+\begin{table}
+\centering	
+\begin{tabular}{l|l}
+\hline
+delta.c & eta.c \\
+\hline
+\begin{codecell}
+int m;
+static int n;
+int fun1()
+{
+	n=fun2();
+	...
+}
+static int fun2()
+{
+	...
+}
+\end{codecell}
+&
+\begin{codecell}
+extern int m;
+int fun3()
+{
+	m=fun1();
+}
+
+\end{codecell}
+\\
+\end{tabular}
+ \caption{Liga de las variables}
+ \label{tab:ejliga3} 
+\end{table}
+\end{comment}
+\end{ejemplo}
+
+
+
+
+
+
+
+\section{Modificadores especiales}
+
+\begin{description}
+	\item[Const] 
+	El modificador \lstinline{const} indica que una variable no será modificada. Una variable \lstinline{const} solamente puede inicializarse al
+momento de carga del programa (y debería hacerse así, ya que no hay otra manera de asignarle un
+valor).
+\begin{lstlisting}
+const int a=12; 	/* se declara un entero constante, con inicializacion */
+a++;				/* el compilador no aprobara esta sentencia */
+\end{lstlisting}
+El modificador \lstinline{const} también permite expresar, en el prototipo de una función, que un argumento no
+podrá ser modificado por la función, aun cuando sea pasado por referencia.
+\item [Volatile]
+Los compiladores modernos aplican una cantidad de pasos de optimización cuando ven instrucciones
+aparentemente redundantes o sin efectos, porque su desplazamiento o eliminación puede implicar
+ventajas en tiempo de ejecución o espacio de almacenamiento. Esto es especialmente así si las
+instrucciones sospechosas se encuentran dentro de ciclos. El modificador volatile sirve para advertir al
+compilador de que una variable será modificada asincrónicamente con la ejecución del programa (por
+ejemplo, por efecto de una rutina de atención de interrupciones) y por lo tanto el optimizador no puede
+inferir correctamente su utilidad dentro del programa. Esto evitará que el compilador aplique la lógica
+de optimización a las instrucciones que involucran a esta variable.
+\end{description}
+
+\begin{ejemplo}
+El ciclo \lstinline{while} del Cuadro \ref{tab:ciclo} podría ser reescrito por un optimizador, extrayendo del ciclo la
+asignación \lstinline{a=beta} en el entendimiento de que \lstinline{beta} no cambiará en ninguno de los pasos del ciclo.
+\begin{comment}
+\begin{table}
+\centering	
+\begin{tabular}{l|l|l}
+\hline
+Sin optimizar & Optimizado & Optimización inhibida\\
+\hline
+\begin{codecell}
+while(!fin) {
+	a = beta;
+	b = fun(a);
+}
+\end{codecell}
+&
+\begin{codecell}
+a = beta;
+while(!fin)
+	b = fun(a);
+\end{codecell}
+&
+\begin{codecell}
+volatile int beta;
+while(!fin) {
+	a = beta;
+	b = fun(a);
+}
+\end{codecell}
+\\
+\end{tabular} 
+  \caption{Optimización de ciclos}
+  \label{tab:ciclo} 
+\end{table}
+\end{comment}
+
+Sin embargo, si esperamos que la variable beta cambie por acción de algún agente externo a la rutina
+en cuestión, con la declaración previa
+\lstinline{volatile int beta}
+el compilador se abstendrá de optimizar las líneas donde intervenga \lstinline{beta}.
+\end{ejemplo}
+
+\input{tc-variables-preg}
+\input{tc-variables-ej}

@@ -1,0 +1,70 @@
+\section{Ejercicios}
+\label{tc-operadores-ej}
+\begin{enumerate}
+\item ¿Qué valor lógico tienen las expresiones siguientes?
+\begin{enumerate}[label=\alph*.]
+	\item \lstinline{TRUE && FALSE}
+	\item \lstinline{TRUE || FALSE}
+	\item \lstinline{0 && 1}
+	\item \lstinline{0 || 1}
+	\item \lstinline{(c > 2) ? (b < 5) : (2 != a)}
+	\item \lstinline{(b == c) ? 2 : FALSE;}
+	\item \lstinline{c == a;}
+	\item \lstinline{C = A;}
+	\item \lstinline{0 || TRUE}
+	\item \lstinline{TRUE || 2-(1+1)}
+	\item \lstinline{TRUE &&  !FALSE}
+	\item \lstinline{!(TRUE && !FALSE)}
+	\item \lstinline{x == y  >  2}
+\end{enumerate}
+\item Escriba una macro \lstinline{IDEM(x,y)} que devuelva el valor lógico \lstinline{TRUE} si \lstinline{x} e \lstinline{y} son iguales, y \lstinline{FALSE} en caso contrario. Escriba \lstinline{NIDEM(x,y)} que devuelva \lstinline{TRUE} si las expresiones \lstinline{x} e \lstinline{y} son diferentes y \lstinline{FALSE} si son iguales.
+
+\item Escriba una macro \lstinline{PAR(x)} que diga si un entero es par. Muestre una versión usando el operador \lstinline{%}, una usando el operador \lstinline{>>}, una usando el operador \lstinline{&} y una usando el operador \lstinline{|}.
+
+\item  Escriba macros \lstinline{MIN(x,y)} y \lstinline{MAX(x,y)} que devuelvan el menor y el mayor elemento entre \lstinline{x} e \lstinline{y}. Usando las anteriores, escriba macros \lstinline{MIN3(x,y,z)} y \lstinline{MAX3(x,y,z)} que devuelvan el menor y el mayor elemento entre tres expresiones.
+
+\item ¿Cuál es el significado aritmético de la expresión \lstinline{1<<x} para diferentes valores de \lstinline{x} = 0, 1, 2... ?
+
+\item Utilice el resultado anterior para escribir una macro \lstinline{DOSALA(x)} que calcule $2$ elevado a la $x$-ésima potencia.
+
+\item ¿A qué otra expresión es igual \lstinline{a<b || a<c && c<d}?
+
+\begin{enumerate}[label=\alph*.]
+	\item \lstinline{a<b || (a<c && c<d)}
+	\item \lstinline{(a<b || a<c) && c<d}
+\end{enumerate}
+
+\item Reescribir utilizando abreviaturas:
+\begin{enumerate}[label=\alph*.]
+	\item \lstinline{a = a + 1;}
+	\item \lstinline{b = b * 2;}
+	\item \lstinline{b = b - 1;}
+	\item \lstinline{c = c - 2;}
+	\item \lstinline{d = d % 2;}
+	\item \lstinline{e = e & 0x0F;}
+	\item \lstinline{a = a + 1;}
+	\item \lstinline{b = b + a;}
+	\item \lstinline{a = a - 1;}
+	\item \lstinline{c = c * a;}
+\end{enumerate}
+
+\item ¿Qué escribirá este programa?
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+	int a = 1;
+	int b;
+
+	b = a || 12;
+
+	printf("%d\n",b);
+}
+
+\end{lstlisting}
+\end{enumerate}
+
+%TODO Ejercicios Adicionales 
+%TODO Ejercicios Avanzados
+

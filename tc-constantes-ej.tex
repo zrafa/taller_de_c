@@ -1,0 +1,50 @@
+
+\section{Ejercicios}
+\label{tc-constantes-ej}
+\begin{enumerate}
+	\item Indicar si las siguientes constantes están bien formadas, y en caso afirmativo indicar su tipo y dar su
+valor decimal.
+		\begin{multicols}{4}
+		\begin{enumerate}[label=\alph*.]
+\item \lstinline{'C'} 
+\item \lstinline{'0'}
+\item \lstinline{'0xAB'}
+\item \lstinline{70}
+\item \lstinline{1A}
+\item \lstinline{0xABL}
+\item \lstinline{070} 
+\item \lstinline{'010'} 
+\item \lstinline{0xaB}
+\item \lstinline{080}
+\item \lstinline{0x10} 
+\item \lstinline{'0xAB'}
+\item \lstinline{0XFUL}
+\item \lstinline{'\030'} 
+\item \lstinline{-40L}
+\item \lstinline{015L}
+\item \lstinline{x41}
+\item \lstinline{'B'}
+\item \lstinline{'\xBB'} 
+\item \lstinline{'AB'}
+\item \lstinline{322U}
+	\end{enumerate}
+	\end{multicols}
+\item Indicar qué caracteres componen las constantes string siguientes:
+		\begin{enumerate}[label=\alph*.]
+\item \lstinline{"ABC\bU\tZ"}
+\item \lstinline{"\103B\x41"}
+	\end{enumerate}
+\item ¿Cómo se imprimirán estas constantes string?
+		\begin{enumerate}[label=\alph*.]
+\item \lstinline{"\0BA"}
+\item \lstinline{"\\0BA"}
+\item \lstinline{"BA\0CD"}
+	\end{enumerate}
+\item ¿Qué imprime esta sentencia? Pista: \textit{nada} no es la respuesta correcta.
+\begin{lstlisting}
+printf("0\r1\r2\r3\r4\r5\r6\r7\r8\r9\r");
+\end{lstlisting}
+\item Escribir una macro que devuelva el valor numérico de un carácter correspondiente a un dígito en base decimal.
+\item Idem donde el carácter es un dígito hexadecimal entre A y F.
+\end{enumerate}
+

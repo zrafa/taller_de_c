@@ -1,0 +1,65 @@
+
+\section{Ejercicios}
+\label{sec:tc-preprocesador-ej}
+\begin{enumerate}
+	\item Dé ejemplos de directivas de preprocesador:
+		\begin{enumerate}[label=\alph*.]
+\item Para incluir un archivo proporcionado por el compilador.
+\item Para incluir un archivo confeccionado por el usuario.
+\item Para definir una constante numérica.
+\item Para compilar un segmento de programa bajo la condición de estar definida una constante.
+\item Idem bajo la condición de ser no definida.
+\item Idem bajo la condición de que un símbolo valga una cierta constante.
+\item Idem bajo la condición de que dos símbolos sean equivalentes.
+\end{enumerate}
+\item Proponga un método para incluir un conjunto de archivos en un módulo fuente con una sola
+directiva de preprocesador.
+ \item ¿Cuál es el ámbito de una definición de preprocesador? Si defino un símbolo A en un fuente y lo
+compilo creando un módulo objeto algo.o, ¿puedo utilizar A desde otro fuente, sin declararlo, a
+condición de linkeditarlo con algo.o?
+\item ¿Qué pasa si defino dos veces el mismo símbolo en un mismo fuente?
+\item Un cierto header A es incluido por otros headers B, C y D. El fuente E necesita incluir a B, C y D.
+Proponga un método para poder hacerlo sin obligar al preprocesador a leer el header A más de una
+vez.
+\item Edite el programa hello.c del ejemplo del capítulo 1 reemplazando la cadena \lstinline{"Hola, mundo!\n"} por
+un símbolo definido a nivel de preprocesador.
+\item  Edite el programa hello.c incluyendo la compilación condicional de la instrucción de impresión
+printf() sujeta a que esté definido un símbolo de preprocesador llamado IMPRIMIR. Compile y pruebe
+a) sin definir el símbolo IMPRIMIR, b) definiéndolo con una directiva de preprocesador, c)
+definiéndolo con una opción del compilador. ¿En qué casos es necesario recompilar el programa?
+\item  Escriba una macro que imprima su argumento usando la función printf(). Aplíquela para reescribir
+hello.c de modo que funcione igual que antes.
+\item  ¿Cuál es el resultado de preprocesar las líneas que siguen? Es decir, ¿qué recibe exactamente el
+compilador luego del preprocesado?
+\begin{lstlisting}
+#define ALFA 8
+#define BETA 2*ALFA
+#define PROMEDIO(x,y) (x+y)/2
+a=ALFA*BETA;
+b=5;
+c=PROMEDIO(a,b);
+\end{lstlisting}
+\item  ¿Qué está mal en los ejemplos que siguen?
+	\begin{enumerate}[label=\alph*.]
+
+\item  
+\begin{lstlisting}
+#define PRECIO 27.5
+PRECIO=27.7;
+\end{lstlisting}
+
+\item  
+\begin{lstlisting}
+#define 3.14 PI
+\end{lstlisting}
+
+\item  
+\begin{lstlisting}
+#define doble(x) 2*x;
+alfa=doble(6)+5;
+\end{lstlisting}
+\end{enumerate}
+\item Investigue la función de los símbolos predefinidos \lstinline{__STDC__}, \lstinline{__FILE__} y \lstinline{__LINE__}.
+\end{enumerate}
+
+

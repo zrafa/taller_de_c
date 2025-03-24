@@ -1,0 +1,384 @@
+
+\documentclass[spanish,11pt,a4paper]{book}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts,textcomp}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{float}
+\usepackage{xkeyval}
+\usepackage[pdftex]{graphicx}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{appendix}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+
+\usepackage{sectsty}
+\definecolor{bl}{rgb}{0.0,0.2,0.6} 
+\allsectionsfont{\color{bl}\scshape\selectfont}
+
+% Párrafos sin indentación
+\usepackage{parskip} % se encarga de espacios entre párrafos
+% Otra forma sin espacios entre párrafos
+% \setlength\parindent{0pt}
+\raggedbottom
+
+% Titulos de secciones
+%-----------------------------------------------------------------
+\usepackage{titlesec}
+
+
+
+
+\titleformat{\chapter}
+ % {\normalfont\LARGE\bfseries} % Formato de la fuente
+ {\normalfont\huge\bfseries} % Formato de la fuente
+ {\color{blue!60}Capítulo \thechapter} % "Capítulo X" en celestito{Capítulo \thechapter} % Número del capítulo
+ % {Capítulo \thechapter} % Número del capítulo
+ {1em} % Espacio entre número y título
+ {\color{blue!60}} % Color del título (azul clarito)
+
+% RAFA \titleformat{\section} {\normalfont\Large\bfseries\color{bl}}{\thesection}{1em}{}[{\titlerule[0.8pt]}] 
+
+% Fix TOC separation between numbers and section titles
+\usepackage[titles]{tocloft}
+\setlength{\cftsecnumwidth}{2.8em}% Set length of number width in ToC for \section
+\setlength{\cftsubsecnumwidth}{2.8em}% Set length of number width in ToC for \subsection
+
+\usepackage[tocindentauto]{tocstyle}
+\usetocstyle{standard}
+% Falta modificar color del titulo
+% RAFA \addto\captionsspanish{\renewcommand*\contentsname{Contenidos}}
+
+%
+% Caracteres nacionales en listados
+%----------------------------------------
+%\usepackage{listings}
+\usepackage{listingsutf8}
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 
+  {¡}{{!`}}1 {¿}{{\?`}}1 
+  {ñ}{{\~n}}1
+}
+
+
+% Environment ejemplo
+%----------------------------------------
+\newcounter{ejemplo}[chapter]
+\newenvironment{ejemplo}[1][\unskip]{\stepcounter{ejemplo}\footnotesize{\bfseries\color{bl}{\noindent\\Ejemplo~\thechapter.\theejemplo #1}}\medskip\hrule\medskip\noindent}{\par}
+
+
+\usepackage{multicol}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lstbackground}{rgb}{0.95,0.95,0.95}
+\definecolor{white}{rgb}{100,100,100}
+
+\lstset{
+  backgroundcolor=\color{lstbackground},
+% language=Bash,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\ttfamily\bfseries},
+  numbers=none,
+%  xleftmargin=0.5cm,
+%  xrightmargin=0.5cm,
+%  frame=lr,framesep=0.5cm,framerule=0pt,
+%  numberstyle=\tiny\color{gray},
+%  keywordstyle=\color{blue},
+%  commentstyle=\color{dkgreen},
+%  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+
+\lstnewenvironment{mylistings}
+  {\lstset{language=C,
+    backgroundcolor=\color{listingscolor}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+    }%
+  }
+  {}
+
+% environment para código en celdas de tablas
+\lstnewenvironment{codecell}
+  {\lstset{basicstyle={\small\ttfamily},% basic font setting
+    backgroundcolor=\color{white}}%
+  }{}
+
+
+
+\usepackage[font=small,skip=1cm]{caption}
+\usepackage{verbatim}
+
+
+% Outline numbering
+\setcounter{secnumdepth}{1}
+% Reset section numbering between parts
+\makeatletter
+\@addtoreset{section}{chapter}
+\makeatother  
+% List styles
+\newcommand\liststyleLi{%
+\renewcommand\labelitemi{\tiny${\blacksquare}$}
+\renewcommand\labelitemii{\tiny${\square}$}
+\renewcommand\labelitemiii{\tiny${\circ}$}
+\renewcommand\labelitemiv{\tiny${\circ}$}
+}
+\newcommand\liststyleLii{%
+\renewcommand\labelitemi{{\textbullet}}
+\renewcommand\labelitemii{${\circ}$}
+\renewcommand\labelitemiii{${\blacksquare}$}
+\renewcommand\labelitemiv{{\textbullet}}
+}
+\newcommand\liststyleLiii{%
+\renewcommand\labelitemi{{\textbullet}}
+\renewcommand\labelitemii{${\circ}$}
+\renewcommand\labelitemiii{${\blacksquare}$}
+\renewcommand\labelitemiv{{\textbullet}}
+}
+
+\liststyleLi
+
+% Page layout (geometry)
+\setlength\voffset{-1in}
+\setlength\hoffset{-1in}
+\setlength\topmargin{2cm}
+\setlength\oddsidemargin{2cm}
+\setlength\textheight{23.246668cm}
+\setlength\textwidth{17.006cm}
+\setlength\footskip{26.144882pt}
+\setlength\headheight{1.016cm}
+\setlength\headsep{0.508cm}
+
+% Footnote rule
+\setlength{\skip\footins}{0.119cm}
+\renewcommand\footnoterule{\vspace*{-0.018cm}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 1fil}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+
+% Pages styles
+\makeatletter
+\newcommand\ps@Standard{
+  \renewcommand\@oddhead{{\raggedleft Cabecera \ } {\raggedright \thepage{}}}
+  \renewcommand\@evenhead{\@oddhead}
+  \renewcommand\@oddfoot{}
+  \renewcommand\@evenfoot{\@oddfoot}
+  \renewcommand\thepage{\arabic{page}}
+}
+
+% \pagestyle{Standard}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+% F O N T S 
+%--------------------------------------
+% \usepackage{dejavu}
+%\usepackage{librebaskerville}
+%\usepackage{sans}
+%\usepackage{libertine}
+%\usepackage{lmodern}
+%\usepackage{opensans}
+%\usepackage{helvet}
+%\usepackage{times}
+
+% FONT DEFAULT
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+% Fancy chapter headings
+
+%%%\usepackage[Rejne]{fncychap}
+%Must be after setting textwidth
+% RAFA \usepackage[Bjornstrup]{fncychap}
+%\ChNameVar{\huge\bfseries\textcolor{blue}}
+%%%\usepackage[Bjarne]{fncychap}
+%%%\usepackage[Glenn]{fncychap}
+%%%\usepackage[Conny]{fncychap}
+%%%\usepackage[Lenny]{fncychap}
+
+\usepackage{mdframed}
+
+% footnotes configuration
+\makeatletter
+\renewcommand\thefootnote{\arabic{footnote}}
+\makeatother
+\usepackage{graphicx}
+
+\usepackage{xkeyval}
+\usepackage{pifont}
+\newcommand{\revisar}[1]{{\color{red}[#1]}}
+%\newcommand{\nota}[1]{{\color{red}[#1]}}
+%\newcommand{\revisar}[1]{}
+
+\newcommand{\borrador}{
+\revisar{\today, \currenttime  -  Material en preparación, se ruega no imprimir mientras aparezca esta nota}
+}
+
+\newcommand{\nota}[1]{}
+\newcommand{\nonota}[1]{#1}
+\newcommand{\quotes}[1]{``#1''}
+\newcommand{\shade}[1]{\textcolor{black!50}{#1}}
+
+% FIGURA
+% ancho opcional, por defecto 15cm
+% \figura{copyleft}{Símbolo de Copyleft}{copyleft.png}
+% \figura[6]{copyleft}{Símbolo de Copyleft}{copyleft.png}
+%-----------------------------------------------------------------
+\newcommand{\figura}[4][15]{
+ \begin{figure}[htb] 
+ \centering 
+ \includegraphics[width=#1cm]{./img/#4}
+ \caption{#3}
+ \label{fig:#2} 
+ \end{figure} 
+}
+
+
+% TABLAS
+% tabla{label}{caption}{columns}{contents}
+%-----------------------------------------------------------------
+\newcommand{\tabla}[4]{
+ \begin{table} 
+ \centering 
+ \small
+ \begin{tabular}{#3}
+ #4
+ \end{tabular}
+ \caption{#2}
+ \label{tab:#1} 
+ \end{table} 
+}
+
+
+\newcommand{\recuadro}[1]{
+\begin{minipage}[c]{0.84\textwidth}
+\begin{mdframed}
+#1
+\end{mdframed}
+\end{minipage}
+}
+
+\usepackage{float}
+
+% Recuadro importante
+%-----------------------------------------------------------------
+\newcommand{\importante}[1]{
+\bigskip
+\noindent
+\begin{minipage}[c]{\linewidth}
+	\rule{\linewidth}{0.1pt}
+	\\{ }\\
+     	\begin{minipage}[h]{0.10\linewidth}
+        	$\vcenter{\hbox{\includegraphics[width=0.5\linewidth]{./img/emblem-important.png}}}$
+     	\end{minipage}
+     	\begin{minipage}[h]{0.80\linewidth}\footnotesize
+#1
+     	\end{minipage}
+    \\{ }\\
+	\rule{\linewidth}{0.1pt}
+\end{minipage}
+\bigskip
+}
+
+
+\newcommand{\code}[1]{\lstinline$#1$}
+
+
+
+
+% Multiple choice
+%-----------------------------------------------------------------
+
+\newcounter{question}
+\newif\ifinchoices
+\inchoicesfalse
+\newenvironment{questions}{%
+  \list{\thequestion.}%
+  {%
+    \usecounter{question}%
+    \def\question{\inchoicesfalse\item}%
+    \settowidth{\leftmargin}{10.\hskip\labelsep}%
+    \labelwidth\leftmargin\advance\labelwidth-\labelsep
+  }%
+}
+{%
+  \endlist
+}%
+
+
+\newcounter{choice}
+\renewcommand\thechoice{\alph{choice}}
+\newcommand\choicelabel{\thechoice)~}
+\def\choice{%
+  \ifinchoices
+    % Do nothing
+  \else
+    \startchoices
+  \fi
+  \refstepcounter{choice}%
+  \ifnum\value{choice}>1\relax
+  \penalty -50\hskip 1em plus 1em\relax
+  \fi
+  \choicelabel
+  \nobreak\enskip
+}% choice
+\def\CorrectChoice{%
+  \choice
+  \addanswer{\thequestion}{\thechoice}%
+}
+\let\correctchoice\CorrectChoice
+
+\newcommand{\startchoices}{%
+  \inchoicestrue
+  \setcounter{choice}{0}%
+  \par % Uncomment this to have choices always start a new line
+  % If we're continuing the paragraph containing the question,
+  % then leave a bit of space before the first choice:
+  \ifvmode\else\enskip\fi
+}%
+
+\newbox\allanswers
+\setbox\allanswers=\hbox{}
+\newcommand{\addanswer}[2]{%
+  \global\setbox\allanswers=\hbox{\unhbox\allanswers #1.~#2\quad}%
+}
+%\newcommand{\showanswers}{%
+%	   \noindent\unhbox\allanswers
+%}
+
+\newcommand{\showinvertedanswers}{%
+\rotatebox[origin=c]{180} {
+	\begin{minipage}[t]{.96\linewidth}
+	   \unhbox\allanswers
+	\end{minipage}%
+}%
+}
+
+\newenvironment{preguntas}{%
+	\section{Preguntas}
+	\begin{questions}
+}{%
+	\end{questions}
+	\subsection{Respuestas}
+	\showinvertedanswers
+}%

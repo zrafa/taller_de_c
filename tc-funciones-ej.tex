@@ -1,0 +1,53 @@
+
+\section{Ejercicios}
+\label{sec:tc-funciones-ej}
+\begin{enumerate}
+	\item Escribir una función que reciba tres argumentos enteros y devuelva un
+entero, su suma.
+\item Escribir una función que reciba dos argumentos enteros y devuelva un long,
+su producto.
+\item Escribir una función que reciba dos argumentos enteros a y b, y utilice a
+las dos anteriores para calcular:
+\begin{lstlisting}
+(a * b + b * 5 + 2) * (a + b + 1)
+\end{lstlisting}
+\item Escribir un programa que utilice la función anterior para realizar el
+cálculo con a=7 y b=3.
+\item ¿Qué está mal en estos ejemplos?
+\begin{enumerate}[label=\alph*.]
+\item 
+\begin{lstlisting}
+int f1(int x, int y);
+{
+    int z;
+    z = x - y;
+    return z;
+}
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+void f2(int k)
+{
+    return k + 3;
+}
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+int f3(long k)
+{
+    return (k < 0) ? -1 : 1;
+}
+printf("%d\n",f3(8));
+\end{lstlisting}
+\end{enumerate}
+\item Escribir una función que reciba dos argumentos, uno de tipo int y el otro de
+tipo char. La función debe repetir la impresión del char tantas veces como lo
+diga el otro argumento. Escribir un programa para probar la función.
+
+\end{enumerate}
+
+%TODO Ejercicios_Adicionales Ejercicios_Avanzados
+
+

@@ -1,0 +1,20 @@
+
+21 marzo de 2025
+
+En estos dias trabajamos con Nico y Anto, en los siguientes cambios:
+
+Colocamos el nombre de los capítulos con una letra, tamaño y color que nos
+gustó más.
+
+Quitamos el "long float" (ya no es permitido en el estandar actual).
+
+Agregamos int a todos los ejemplos con main() sin tipo de retorno.
+
+Agregamos <stdio.h> a todos los ejemplos que usaban printf() dentro de main()
+
+Modificamos los siguientes textos (ahora existe un tipo boolean en C):
+Decia: "Al no existir tipo booleano... etc". [lo quitamos]
+Decia: "Nótese que no existen en C tipos boolean... etc". [lo quitamos]
+
+COMENTAMOS varias tablas... Hay que corregirlas para que latex actual
+las pueda compilar. Si las habilitamos tal cual falla la generación del pdf.

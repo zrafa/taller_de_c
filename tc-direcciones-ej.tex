@@ -1,0 +1,128 @@
+\section{Ejercicios}
+\label{sec:tc-direcciones-ej}
+\begin{enumerate}
+	\item Dado el programa siguiente, ¿a dónde apunta \texttt{k1}?
+\begin{lstlisting}
+int main()
+{
+    int k;
+    int *k1;
+}
+\end{lstlisting}
+	\item Dado el programa siguiente, ¿a dónde apunta \texttt{m1}?
+\begin{lstlisting}
+int *m1;
+int main()
+{
+    ...
+}	
+\end{lstlisting}
+	\item ¿Cuánto espacio de almacenamiento ocupa un arreglo de diez enteros? ¿Cuánto
+espacio de almacenamiento ocupa un puntero a entero?
+	\item Declarar variables \texttt{long} llamadas a, b y c, y punteros a \texttt{long} llamados p, q y r; y dar
+las sentencias en C para realizar las operaciones siguientes. Para cada caso,
+esquematizar el estado final de la memoria.
+	\begin{enumerate}[label=\alph*.]
+		\item Cargar p con la dirección de a. Si ahora escribimos \lstinline{*p = 1000}, ¿qué
+      ocurre?
+		\item Cargar r con el contenido de p. Si ahora escribimos \lstinline{*r = 1000}, ¿qué
+      ocurre?
+		\item Cargar q con la dirección de b, y usar q para almacenar una constante \texttt{4L}
+      en el espacio de b.
+		\item Cargar en c la suma de a y b, pero sin escribir la expresión $a+b$.
+		\item Almacenar en c la suma de a y b pero haciendo todos los accesos a las
+      variables en forma indirecta.
+	\end{enumerate}
+\item Compilar y ejecutar:
+\begin{enumerate}[label=\alph*.]
+		\item 
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+    char *a = "Ejemplo";
+    printf("%s\n",a);
+}
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+    char *a;
+    printf("%s\n",a);
+}
+\end{lstlisting}		
+
+\item 
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+    char *a = "Ejemplo";
+    char *p;
+    p = a;
+    printf("%s\n", p);
+}
+\end{lstlisting}	
+\end{enumerate}
+
+
+
+	\item ¿Qué imprimirán estas sentencias?
+	\begin{enumerate}[label=\alph*.]
+\item \lstinline{char *s = "ABCDEFG";}
+\item \lstinline{printf("%s\n", s);}
+\item \lstinline{printf("%s\n", s + 0);}
+\item \lstinline{printf("%s\n", s + 1);}
+\item \lstinline{printf("%s\n", s + 6);}
+\item \lstinline{printf("%s\n", s + 7);}
+\item \lstinline{printf("%s\n", s + 8);}
+\end{enumerate}
+	\item ¿Son correctas estas sentencias? Bosqueje un diagrama del estado final de la
+memoria para aquellas que lo sean.
+	\begin{enumerate}[label=\alph*.]
+\item \lstinline{char *a = "Uno";}
+\item \lstinline{char *a, b; a = "Uno"; b = "Dos";}
+\item \lstinline{char *a,*b ; a = "Uno"; b = a;}
+\item \lstinline{char *a,*b ; a = "Uno"; b = *a;}
+\item \lstinline{char *a,*b ; a = "Uno"; *b = a;}
+\item \lstinline{char *a = "Dos"; *a = 'T';}
+\item \lstinline{char *a = "Dos"; a = "T";}
+\item \lstinline{char *a = "Dos"; *(a + 1) = 'i'; *(a + 2) = 'a';}
+\item \lstinline{char *a, *b ; b = a;}
+	\end{enumerate}
+	\item Escribir funciones para:
+	\begin{enumerate}[label=\alph*.]
+\item Calcular la longitud de una cadena.
+\item Dado un carácter determinado y una cadena, devolver la primera posición
+      de la cadena en la que se lo encuentre, o bien $-1$ si no se halla.
+\item Buscar una subcadena en otra, devolviendo un puntero a la posición donde
+      se la halle.
+	\end{enumerate}
+
+	\item Escribir una función para reemplazar en una cadena todas las ocurrencias de
+un carácter dado por otro, suponiendo:
+	\begin{enumerate}[label=\alph*.]
+\item Que no interesa conservar la cadena original, sino que se reemplazarán
+      los caracteres sobre la misma cadena.
+\item Que se pretende obtener una segunda copia, modificada, de la cadena
+      original, sin destruirla.
+	\end{enumerate}
+
+	\item Escribir funciones para:
+	\begin{enumerate}[label=\alph*.]
+\item Rellenar una cadena con un carácter dado, hasta que se encuentre el $0$
+      final, o hasta alcanzar $n$ iteraciones.
+\item Pasar una cadena a mayúsculas o minúsculas.
+	\end{enumerate}
+
+	\item Reescriba dos de las funciones escritas en 8 y dos de las escritas en 10
+usando la notación opuesta (cambiando punteros por arreglos).
+
+\end{enumerate}
+%TODO Ejercicios_Adicionales Ejercicios_Avanzados

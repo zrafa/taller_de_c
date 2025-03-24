@@ -1,0 +1,44 @@
+
+\section{Ejercicios}
+\label{sec:tc-esstandard-ej}
+\begin{enumerate}
+\item Escribir una función que copie la entrada en la salida pero eliminando las
+vocales.
+\item Escribir una función que reemplace los caracteres no imprimibles por
+caracteres punto.
+\item Construir un programa que imprima su entrada invertida, carácter por carácter.
+\item Construir un programa que imprima su entrada invertida, línea por línea.
+\item Construir un programa que cuente la cantidad de palabras de un archivo,
+separadas por blancos, tabuladores o fin de línea.
+\item Construir un programa que cuente la cantidad de caracteres y de líneas de un
+archivo.
+\item Construir un programa que permita eliminar de un archivo las líneas que
+contengan una cadena dada.
+\item Escribir una función que reciba como argumento dos enteros y devuelva un
+string de formato conteniendo una máscara de formato apropiada para imprimir un
+número en punto flotante. Por ejemplo, si se le dan como argumentos 7 y 2,
+deberá devolver el string \lstinline{"%7.2f"}. Aplicar la función para imprimir números en
+punto flotante.
+\item Escribir sobre un archivo una variable \code{int} con valor 1 y una variable \code{long}
+con valor 2. Hacerlo primero con funciones de E/S con formato, y luego con
+funciones de acceso directo. Examinar en cada caso el resultado visualizando el
+archivo y opcionalmente con un comando como \code{od -bc}.
+\item (*) Defina una estructura básica simple para un registro, a su gusto. Puede ser
+un registro de información personal, bibliográfica, etc. Construya funciones
+para leer estos datos del teclado e imprimirlos en pantalla. Luego, usando
+funciones ANSI C, construya funciones para leer y escribir una de estas
+estructuras en un archivo, dado un número de registro lógico determinado.
+\item (*) Repita el ejercicio anterior reemplazando las funciones ANSI C por funciones
+POSIX.
+\item Construya programas que utilicen las funciones anteriores, ANSI C o POSIX,
+y ofrezcan un menú de operaciones de administración: cargar un dato en el
+archivo, imprimir los datos contenidos en una posición determinada, listar la
+base generada completa, eliminar un registro, etc.
+\item Construir una función que pida por teclado datos personales (nombre, edad, ...) y los almacene en una estructura. Construir una función que imprima los valores recogidos por la función anterior. 
+\item Construir un programa que lea una cantidad de datos en lote y luego los imprima utilizando las funciones del ejercicio anterior. Generar un archivo de datos usando redirección.
+\item Realizar el mismo programa del punto anterior pero efectuando toda la E/S sobre archivos. El programa deberá poder leer el archivo de datos del punto anterior.
+\item Construir un programa que organice la salida de la función anterior para obtener un clon del comando \code{od} de UNIX.
+\item Construir un programa que lea el listado de un directorio en formato largo (la salida del comando \code{ls -l}) y devuelva la cantidad total de bytes ocupados.
+\item Construya programas que utilicen las funciones ANSI C o POSIX de los ejercicios anteriores \textbf{marcados con un asterisco}, y que ofrezcan un menú de operaciones de administración: cargar un dato en el archivo, imprimir los datos contenidos en una posición determinada, listar la base generada completa, eliminar un registro, etc.
+\end{enumerate}
+

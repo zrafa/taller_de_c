@@ -1,0 +1,50 @@
+
+
+\section{Ejercicios}
+\label{sec:tc-estructuradas-ej}
+\begin{enumerate}
+\item Escribir una declaración con inicialización de un arreglo de diez elementos
+\code{double}, todos inicialmente iguales a $2.25$.
+\item Escribir las sentencias para copiar un arreglo de cinco \code{longs} en otro.
+\item Escribir las sentencias para obtener el producto escalar de dos vectores.
+\item Escribir una función que devuelva la posición donde se halla el menor
+elemento de un arreglo de \code{floats}.
+\item Dado un vector de diez elementos, escribir todos los promedios de cuatro
+elementos consecutivos.
+\item Declarar una estructura punto conteniendo coordenadas x e y de tipo \code{double}.
+Dar ejemplos de inicialización y de asignación.
+\item Declarar una estructura \textbf{segmento} conteniendo dos estructuras \textbf{punto}. Dar
+ejemplos de inicialización y de asignación. Dar una función que calcule su
+longitud. Dar una función que reciba un segmento $S$ y un punto $p$, y devuelva \code{TRUE} si $p \in S$. 
+\item ¿Cuál es el error en estas sentencias de inicialización?
+\begin{enumerate} [label=\alph*.]
+
+\item 
+\begin{lstlisting}
+struct alfa {
+	int a, b;
+};
+alfa = { 10, 25 };
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+struct alfa {
+	int a, b;
+};
+alfa d = { 10, 25 };
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+union dato {
+	char dato_a[4];
+	long dato_n;
+} xdato = { "ABC", 1000 };
+\end{lstlisting}
+\end{enumerate}
+\end{enumerate}
+
+%TODO Ejercicios_Adicionales  Ejercicios_Avanzados
+
+

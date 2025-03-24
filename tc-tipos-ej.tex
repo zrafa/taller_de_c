@@ -1,0 +1,134 @@
+
+\section{Ejercicios}
+\label{sec:tc-tipos-ej}
+\begin{enumerate}
+	\item ¿Cuáles de entre estas declaraciones contienen errores?
+		\begin{multicols}{2}
+		\begin{enumerate}[label=\alph*.]
+			\item integer a;
+			\item short i,j,k;
+			\item double long d3;
+			\item unsigned float n;
+			\item char 2j;
+			\item int MY;
+			\item float ancho, alto, long;
+		\end{enumerate}
+		\end{multicols}
+	\item Dé declaraciones de variables con tipos de datos adecuados para almacenar:
+	\begin{enumerate}[label=\alph*.]
+		\item La edad de una persona.
+		\item Un número de DNI.
+		\item La distancia, en Km, entre dos puntos cualesquiera del globo terrestre.
+		\item El precio de un artículo doméstico.
+		\item El valor de la constante PI expresada con 20 decimales.
+	\end{enumerate}
+	\item Prepare un programa con variables conteniendo los valores máximos de cada tipo entero, para
+comprobar el resultado de incrementarlas en una unidad. Imprima los valores de cada variable antes y
+después del incremento. Incluya \textbf{unsigneds}.
+	\item Lo mismo, pero dando a las variables los valores mínimos posibles, e imprimiéndolas antes y
+después de decrementarlas en una unidad.
+	\item Averigüe los tamaños de todos los tipos básicos en su sistema aplicando el operador \lstinline{sizeof()}.
+	\item Si se asigna la expresión $(3-5)$ a un \lstinline{unsigned short}, ¿cuál es el resultado? ¿Depende de qué formato de conversión utilicemos para imprimirlo?
+	\item ¿Qué hace falta corregir para que la variable \lstinline{r} contenga la división exacta de \lstinline{a} y \lstinline{b}?
+	\begin{lstlisting}
+int a, b;
+float r;
+a = 5;
+b = 2;
+r = a / b;		
+	\end{lstlisting}
+	\item ¿Qué resultado puede esperarse del siguiente fragmento de código?
+	\begin{lstlisting}
+int a, b, c, d;
+a = 1;
+b = 2;
+c = a / b;
+d = a / c;
+	\end{lstlisting}
+	\item ¿Cuál es el resultado del siguiente fragmento de código? Anticipe su respuesta en base a lo dicho en
+esta unidad y luego confírmela mediante un programa.
+	\begin{lstlisting}
+printf("%d\n", 20/3);
+printf("%f\n", 20/3);
+printf("%f\n", 20/3.);
+printf("%d\n", 10%3);
+printf("%d\n", 3.1416);
+printf("%f\n", (double)20/3);
+printf("%f\n", (int)3.1416);
+printf("%d\n", (int)3.1416);
+	\end{lstlisting}
+\item Escribir un programa que multiplique e imprima $100000 * 100000$. ¿De qué tamaño son los ints
+en su sistema?
+\item Convertir una moneda a otra sabiendo el valor de cambio. Dar el valor a dos decimales.
+\item Escriba y corra un programa que permita saber si los chars en su sistema son signed o unsigned.
+\item Escriba y corra un programa que asigne el valor 255 a un char, a un unsigned char y a un signed
+char, y muestre los valores almacenados. Repita la experiencia con el valor \lstinline$-1$ y luego con \lstinline$'\377'$.
+Explicar el resultado.
+\item Copiar y compilar el siguiente programa. Explicar el resultado.
+\begin{lstlisting}
+#include <stdio.h>
+
+int main() 
+{
+	double x;
+	int i;
+	i = 1400;
+	x = i; /* conversion de int a double */
+	printf("x = %10.6le\ti = %d\n",x,i);
+	x = 14.999;
+	i = x; /* conversion de double a int */
+	printf("x = %10.6le\ti = %d\n",x,i);
+	x = 1.0e+60;
+	i = x;
+	printf("x = %10.6le\ti = %d\n",x,i);
+}
+	\end{lstlisting}
+
+\item Escriba un programa que analice la variable \lstinline{v} conteniendo el valor 347 y produzca la salida:
+	\begin{lstlisting}
+3 centenas
+4 decenas
+7 unidades
+\end{lstlisting}
+(y, por supuesto, salidas acordes si \lstinline{v} toma otros valores).
+	\item Sumando los dígitos de un entero escrito en notación decimal se puede averiguar si es divisible por
+3 (se constata si la suma de los dígitos lo es). ¿Esto vale para números escritos en otras bases? ¿Cómo
+se puede averiguar esto?
+	\item Indicar el resultado final de los siguientes cálculos
+\begin{enumerate}[label=\alph*.]
+\item \lstinline{int a; float b = 12.2; a = b;}
+\item \lstinline{int a, b; a = 9; b = 2; a /= b;}
+\item \lstinline{long a, b; a = 9; b = 2; a /= b;}
+\item \lstinline{float a; int b, c; b = 9; c = 2; a = b/c;}
+\item \lstinline{float a; int b, c; b = 9; c = 2; a = (float)(b/c);}
+\item \lstinline{float a; int b, c; b = 9; c = 2; a = (float)b/c;}
+\item \lstinline{short a, b, c; b = -2; c = 3; a = b * c;}
+\item \lstinline{short a, b, c; b = -2; c = 3; a = (unsigned)b * c;}
+\end{enumerate}
+\item Aplicar operador cast donde sea necesario para obtener resultados apropiados:
+	\begin{enumerate}[label=\alph*.] 
+	\item 
+	\begin{lstlisting}
+int a; long b; float c;
+a = 1; b = 2; c = a / b;
+	\end{lstlisting} 
+
+	\item 
+	\begin{lstlisting}
+long a; 
+int b,c;
+b = 1000; c = 1000;
+a = b * c;
+	\end{lstlisting}
+	\end{enumerate}
+\item ¿Cuál es la salida de este programa? ¿Cuál es la explicación?
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+	printf("%f\n", (float)333334126.98);
+	printf("%f\n", (float)333334125.31);
+}
+\end{lstlisting}
+\end{enumerate}

@@ -1,0 +1,40 @@
+
+\section{Ejercicios}
+\label{sec:bstandardej}
+\begin{enumerate}
+	\item Utilizar la función de cantidad variable de argumentos definida más arriba
+para obtener los promedios de los 2, 3, ..., n primeros elementos de un
+arreglo.
+	\item Construir una función de lista variable de argumentos que efectúe la
+concatenación de una cantidad arbitraria de cadenas en una zona de memoria
+provista por la función que llama.
+	\item Construir una función de cantidad variable de argumentos que sirva para
+imprimir, con un formato especificado, mensajes de debugging, conteniendo
+nombres y valores de variables.
+	\item Construir un programa que separe la entrada standard en palabras, usando las
+macros de clasificación de caracteres. Debe considerar como delimitadores a los
+caracteres espacio, tabulador, signos de puntuación, etc.
+	\item Dadas dos fechas y horas del día, calcular su diferencia. Utilizar las
+funciones de Biblioteca Standard para convertir a tipos de datos convenientes e imprimir la
+diferencia en años, meses, días, horas, etc.
+	\item Generar fechas al azar dentro de un período de tiempo dado.
+\end{enumerate}
+
+\section{Ejercicios avanzados}
+\begin{enumerate}
+	\item Construir un paquete de administración de archivos en formato \textbf{CSV}, escribiendo:
+	\begin{itemize}
+		\item Una función de inicialización que lea la cabecera del archivo, reconozca los nombres de campos y construya una lista con ellos; y prepare una tabla de registros en memoria, vacía. 
+		\item Una función que lea la siguiente línea del archivo y asigne los valores a un nuevo registro en la tabla de registros en memoria.
+		\item Una función que ordene alfabéticamente la tabla de registros en memoria según un campo, dado por su nombre.
+		\item Una modificación a la función anterior que permita diferenciar entre campos alfanuméricos y numéricos según el nombre del campo (por ejemplo, si el nombre del campo comienza con \quotes{n}, determinar que se trata de un campo numérico), y ordene la tabla aplicando la comparación adecuada entre registros.
+		\item Una función que busque una cadena en un campo alfanumérico y devuelva el índice del registro donde se la encuentre.
+		\item Una función que sume los contenidos en un campo numérico.
+		\item Una función que reciba un nombre de campo y un parámetro numérico o alfabético, y devuelva el índice del primer registro donde se halle un valor mayor o igual que el parámetro para ese campo, asumiendo que la tabla de registros está ordenada. 
+		\item Una función que grabe el archivo con las modificaciones a los registros que hubieran ocurrido.
+	\end{itemize}
+
+Una vez probadas las funciones, escriba un programa que pueda funcionar como utilitario de línea de comandos para que el usuario administre sus archivos CSV.
+
+Dedique algo de tiempo a considerar la mejor estructura de datos posible de acuerdo a las funciones que debe contener el paquete (por ejemplo, considere si es preferible un arreglo bidimensional definido estáticamente, un arreglo lineal definido estáticamente de punteros a espacio asignado dinámicamente, una lista asignada dinámicamente de punteros a espacio asignado dinámicamente, etc.).
+\end{enumerate}
