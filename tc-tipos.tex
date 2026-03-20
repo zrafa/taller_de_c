@@ -136,7 +136,7 @@ a=a+1;
 
 el incremento de \lstinline{a} provoca overflow, y el nuevo valor de \lstinline{a} se trunca a 16 bits, volviendo así a 0.
 
-Siempre se puede saber el tamaño en bits de un tipo de datos aplicando el operador \lstinline{sizeof()} a una
+Siempre se puede saber el tamaño en bytes de un tipo de datos aplicando el operador \lstinline{sizeof()} a una
 variable o a la especificación de tipo.
 
 \section{Operaciones con distintos tipos}
@@ -173,7 +173,7 @@ En la sentencia:
 \begin{lstlisting}
 a=19.27 * b;	
 \end{lstlisting}
-\lstinline{a} contendrá los \lstinline{sizeof(int)} bits menos significativos del resultado de evaluar la expresión de la
+\lstinline{a} contendrá los bits menos significativos del resultado de evaluar la expresión de la
 derecha, truncada sin decimales.
 
 \subsection{Promoción automática de expresiones}
